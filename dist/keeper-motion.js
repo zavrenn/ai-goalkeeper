@@ -46,6 +46,7 @@ export class KeeperMotion {
   }
 
   warmUp(now = 0) { this.switchTo('warmup', now); }
+  recover(now = 0) { this.switchTo('warmup', now, { blendSeconds: .45 }); return .45; }
   greet(now = 0) { this.switchTo('greet', now); return GREETING_SECONDS; }
   complain(now = 0) { this.switchTo('complain', now, { blendSeconds: .24, preserveSide: true }); return COMPLAINT_SECONDS; }
   react(direction, now = 0, offset = 0) {

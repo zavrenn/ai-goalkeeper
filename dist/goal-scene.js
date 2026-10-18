@@ -240,6 +240,11 @@ export async function createGoalScene(container, { onReady, onError, onZoneLayou
     motion.warmUp(performance.now()); pose(performance.now());
   }
 
+  function recover() {
+    if (!modelReady || disposed) return 0;
+    const duration = motion.recover(performance.now()); pose(performance.now()); return duration;
+  }
+
   function resize() {
     if (!renderer || disposed) return;
     const width = container.clientWidth, height = container.clientHeight;
@@ -301,7 +306,7 @@ export async function createGoalScene(container, { onReady, onError, onZoneLayou
 
   const api = {
     get ready() { return modelReady && !disposed; },
-    react, greet, warmUp, complain, highlight, setProbabilities, reset, stop, dispose, resize,
+    react, greet, warmUp, recover, complain, highlight, setProbabilities, reset, stop, dispose, resize,
   };
 
   try {

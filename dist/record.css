@@ -36,11 +36,12 @@ video { width: 100%; height: 100%; object-fit: contain; display: block; }
 .zone strong small { font-size: .45em; vertical-align: top; line-height: 1.4; margin-left: 2px; letter-spacing: 0; }
 .zone.selected { color: #ddffa9; opacity: 1; }
 .zone.locked strong { font-weight: 650; }
-.prediction-result { position: absolute; z-index: 2; right: 4%; bottom: 7%; display: flex; align-items: center; gap: 7px; max-width: 70%; padding: 8px 12px; border: 1px solid #a4e59275; border-radius: 999px; background: #152b21ed; color: #d9ffc1; font-size: clamp(10px, 1.55cqw, 14px); font-weight: 600; box-shadow: 0 4px 18px #0002; pointer-events: none; animation: result-arrive .2s ease-out both; }
+.prediction-result { position: absolute; z-index: 2; right: 4%; bottom: 7%; display: flex; align-items: center; justify-content: center; width: clamp(36px, 6cqw, 54px); height: clamp(36px, 6cqw, 54px); border: 1px solid #a4e59275; border-radius: 50%; background: #152b21ed; color: #d9ffc1; font-size: clamp(24px, 4cqw, 36px); font-weight: 600; box-shadow: 0 4px 18px #0002; pointer-events: none; animation: result-arrive .2s ease-out both; }
 .prediction-result[data-result="wrong"] { color: #ffd2cf; background: #411e20ed; border-color: #ed7e7e85; }
 .prediction-result[data-result="unscored"] { color: #d7ded8; background: #202b24ed; border-color: #8f9d9185; }
 .prediction-result[data-side="left"] { right: auto; left: 4%; }
-#resultIcon { font-size: 1.3em; line-height: 1; }
+#resultIcon { font-size: 1em; line-height: 1; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 @keyframes result-arrive { from { opacity: 0; transform: translateY(5px) scale(.96); } to { opacity: 1; transform: none; } }
 .playback-controls { display: flex; justify-content: center; padding-top: 20px; }
 .primary-button { display: inline-flex; align-items: center; justify-content: center; gap: 11px; min-width: 136px; padding: 12px 25px; border: 0; border-radius: 999px; color: #182512; background: var(--green); font-size: 14px; font-weight: 600; }

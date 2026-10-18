@@ -38,7 +38,8 @@ Environment files are loaded in order: `.env`, then `.env.local`. Existing proce
 2. The local server validates that each frame is inside the shot's confirmed pre-contact window, then sends it to the Decisions API.
 3. The API chooses left, center or right. Direction uses the kicker/camera viewpoint, facing the goal.
 4. At the annotated kick, the keeper uses the latest answer already received. If none is ready, it waits for the first usable late answer and displays the delay.
-5. A result marker compares the committed direction with a manually reviewed outcome after the shot. Later answers cannot redirect an existing dive.
+5. After the shot, a ✓ means the committed direction matched the ball's destination and the answer was ready before the annotated kick. A ✕ means a wrong direction or a late answer. An ambiguous boundary can rule out a side without establishing a successful prediction; otherwise unclear and off-target shots remain unscored. Later answers cannot redirect an existing dive.
+6. The clip pauses after the shot while the result stays visible. The keeper finishes its reaction and returns upright before the next penalty starts; these pauses do not give the next prediction extra time.
 
 Only one request is in flight at a time. Pending frames are skipped rather than queued. Errors and refusals never produce a substitute prediction. Match identity, scores, annotated outcomes and kick deadlines are not included in the model input.
 

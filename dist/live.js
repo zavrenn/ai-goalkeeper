@@ -12,7 +12,7 @@ const cropContext = crop.getContext('2d', { alpha: false });
 const directions = ['left', 'center', 'right'];
 const capitalize = value => value.charAt(0).toUpperCase() + value.slice(1);
 const ms = value => Number.isFinite(value) ? String(Math.round(value)) : '—';
-let config, keeper, currentRun, frameHandle, animationHandle, sequence, nextShotTimer, requestOwner;
+let config, keeper, currentRun, frameHandle, animationHandle, sequence, requestOwner;
 let sequenceRuns = [];
 let videoReady = false, keyReady = false, keeperReady = false, runNumber = 0;
 
@@ -103,7 +103,6 @@ function seekToStart(run) {
 
 async function startRun(mode) {
   if (isActive() || !videoReady || !keeperReady || (mode === 'ai' && !canRun())) return;
-  clearTimeout(nextShotTimer); nextShotTimer = null;
   sequenceRuns = [];
   await startShot(mode, sequence.start());
 }
@@ -126,7 +125,9 @@ async function startShot(mode, state) {
     lastSentFrame: -Infinity, latest: null, controller: null,
     startedAt: new Date().toISOString(), reaction: createReactionState(mode), keeperStartedAt: null,
     preparedClockMs: performance.now(), playbackClockMs: null, endedClockMs: null,
-    result: null, resultShownAt: null, complaintStartedAt: null, complaintTimer: null,
+    result: null, resultShownAt: null, complaintStartedAt: null,
+    transitionPhase: null, transitionTimer: null, cancelTransition: null,
+    recoveryStartedClockMs: null, readyClockMs: null, handoffReadyClockMs: null,
   };
   currentRun = run; sequenceRuns.push(run);
   crop.width = run.crop.width; crop.height = run.crop.height;
@@ -143,6 +144,11 @@ async function startShot(mode, state) {
       if (!isCurrent(run)) return;
     }
     keeper.warmUp();
+    if (run.index === 0) {
+      // Let the greeting blend fully into the ready pose before motion starts.
+      await waitForGreeting(run, .25);
+      if (!isCurrent(run)) return;
+    }
     text('decisionLabel', mode === 'preview' ? 'Video preview' : 'AI is watching the player…');
     video.playbackRate = 1; video.muted = true; run.playing = true;
     run.playbackClockMs = performance.now();
@@ -161,6 +167,15 @@ async function startShot(mode, state) {
 }
 
 function renderSituation(run) {
+  if (run.transitionPhase) {
+    const ready = run.transitionPhase === 'ready';
+    badge(ready ? 'READY' : 'GETTING READY');
+    text('phaseLabel', ready ? 'KEEPER READY' : 'KEEPER RECOVERING');
+    text('decisionLabel', ready ? 'Keeper ready' : 'Getting ready…');
+    text('reactionStatus', 'The clip stays paused until the keeper is ready');
+    $('reactionStatus').className = 'ready';
+    return;
+  }
   const commit = run.reaction.commit;
   if (commit) {
     const late = commit.timing === 'late';
@@ -264,36 +279,53 @@ function finishPlayback(run) {
   else finishRun(run);
 }
 
-function finishRun(run) {
+function waitForTransition(run, durationMs) {
+  return new Promise(resolve => {
+    const done = () => {
+      clearTimeout(run.transitionTimer);
+      run.transitionTimer = null; run.cancelTransition = null;
+      resolve(isCurrent(run) && isActive());
+    };
+    run.cancelTransition = done;
+    run.transitionTimer = setTimeout(done, Math.max(0, durationMs));
+  });
+}
+
+async function finishRun(run) {
   if (!isCurrent(run) || run.finished) return;
+  // A final response may arrive after playback paused. Grade and lock that
+  // actual response before starting the result hold or recovery.
+  synchronize(run);
   run.finished = true; cancelAnimationFrame(animationHandle);
   const answerCount = run.records.filter(record => record.type === 'choice').length;
   text('runStatus', run.failed ? 'Request failed. See Setup & results.' : run.mode === 'preview' ? 'Preview complete · no API requests.' : `Complete · ${answerCount} live prediction${answerCount === 1 ? '' : 's'}`);
   renderSituation(run); updateDetails(run); updateControls();
-  // Let the full dive and landing read clearly, including a late answer that
-  // arrived after this clip stopped. No request is carried into the next shot.
+  // Keep this shot and its counter on screen through the result, full dive,
+  // gesture and recovery. Nothing seeks, plays or samples the next shot yet.
   const now = performance.now();
-  let holdMs = Math.max(400, run.keeperStartedAt === null ? 0 : run.keeperStartedAt + 1500 - now,
-    run.resultShownAt === null ? 0 : run.resultShownAt + 700 - now);
+  const holdMs = Math.max(400, run.keeperStartedAt === null ? 0 : run.keeperStartedAt + 1500 - now,
+    run.resultShownAt === null ? 0 : run.resultShownAt + 1000 - now);
+  if (!await waitForTransition(run, holdMs)) return;
   if (run.result?.type === 'wrong') {
-    const complaintAt = run.complaintStartedAt ?? Math.max(now, run.keeperStartedAt + 1100);
     if (run.complaintStartedAt === null) {
-      run.complaintTimer = setTimeout(() => {
-        if (!isCurrent(run) || !sequence.state.active || run.complaintStartedAt !== null) return;
-        keeper.complain(); run.complaintStartedAt = performance.now();
-      }, Math.max(0, complaintAt - now));
+      keeper.complain(); run.complaintStartedAt = performance.now();
     }
-    holdMs = Math.max(holdMs, complaintAt + COMPLAINT_SECONDS * 1000 + 100 - now);
+    if (!await waitForTransition(run, run.complaintStartedAt + COMPLAINT_SECONDS * 1000 + 100 - performance.now())) return;
   }
-  nextShotTimer = setTimeout(() => {
-    nextShotTimer = null;
-    if (!isCurrent(run) || !sequence.state.active) return;
-    const next = sequence.advance(run.generation);
-    if (next.completed) {
-      badge('COMPLETE'); text('runStatus', 'All penalties complete. Ready to play again.');
-      updateControls();
-    } else startShot(run.mode, next);
-  }, holdMs);
+  run.recoveryStartedClockMs = performance.now(); run.transitionPhase = 'recovering';
+  renderSituation(run);
+  const recoverySeconds = keeper.recover ? keeper.recover() : (keeper.warmUp(), .45);
+  if (!await waitForTransition(run, Math.max(500, (recoverySeconds || .45) * 1000))) return;
+  run.readyClockMs = performance.now(); run.transitionPhase = 'ready';
+  renderSituation(run);
+  // A distinct upright beat makes the next start legible at recording speed.
+  if (!await waitForTransition(run, 500)) return;
+  run.handoffReadyClockMs = performance.now();
+  const next = sequence.advance(run.generation);
+  if (next.completed) {
+    badge('COMPLETE'); text('runStatus', 'All penalties complete. Ready to play again.');
+    updateControls();
+  } else startShot(run.mode, next);
 }
 
 function updateDetails(run) {
@@ -383,10 +415,10 @@ async function submitFrame(run, frameTimeSeconds) {
 function stopRun() {
   const run = currentRun;
   if (!run || !isActive()) return;
-  sequence.stop(); clearTimeout(nextShotTimer); nextShotTimer = null;
+  sequence.stop();
   run.cancelled = true; run.playing = false; run.finished = true;
   run.cancelSeek?.();
-  run.cancelGreeting?.(); clearTimeout(run.complaintTimer);
+  run.cancelGreeting?.(); run.cancelTransition?.();
   run.controller?.abort(); run.busy = false; video.pause(); keeper.stop();
   cancelAnimationFrame(animationHandle);
   if (frameHandle !== undefined && 'cancelVideoFrameCallback' in video) video.cancelVideoFrameCallback(frameHandle);
@@ -407,6 +439,9 @@ function runEvidence() {
       preparedClockMs: run.preparedClockMs, playbackClockMs: run.playbackClockMs,
       endedClockMs: run.endedClockMs, contactClockMs: run.contactAt,
       keeperClockMs: run.keeperStartedAt, resultClockMs: run.resultShownAt,
+      recoveryStartedClockMs: run.recoveryStartedClockMs, readyClockMs: run.readyClockMs,
+      handoffReadyClockMs: run.handoffReadyClockMs,
+      uprightHoldMs: run.handoffReadyClockMs === null ? null : run.handoffReadyClockMs - run.readyClockMs,
       cancelled: run.cancelled, finished: run.finished,
       readyAtContact: commit?.timing === 'ready' ? commit.direction : null,
       predictionResult: run.result,

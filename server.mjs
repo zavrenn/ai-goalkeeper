@@ -109,6 +109,7 @@ export async function createApp(options = {}) {
       ...(item.evaluation ? { evaluation: {
         zone: item.evaluation.zone, kind: item.evaluation.kind,
         visibleAtSeconds: item.evaluation.visibleAtSeconds,
+        ...(item.evaluation.possibleZones ? { possibleZones: item.evaluation.possibleZones } : {}),
       } } : {}),
     };
   });

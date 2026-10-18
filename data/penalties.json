@@ -47,9 +47,9 @@
         "uncertaintySeconds": 0.033334
       },
       "evaluation": {
-        "zone": "left",
+        "zone": "right",
         "kind": "goal",
-        "visibleAtSeconds": 7.1
+        "visibleAtSeconds": 7.333333
       }
     },
     {
@@ -91,14 +91,15 @@
         "uncertaintySeconds": 0.033334
       },
       "evaluation": {
-        "zone": "right",
-        "kind": "goal",
-        "visibleAtSeconds": 13.966667
+        "zone": null,
+        "kind": "unclear",
+        "visibleAtSeconds": 13.966667,
+        "possibleZones": ["center", "right"]
       }
     },
     {
       "id": "penalty-05",
-      "runUpStartSeconds": 15.633333,
+      "runUpStartSeconds": 15.6,
       "kickTimeEstimateSeconds": 16,
       "clipEndSeconds": 17.2,
       "latestConfirmedPreContactFrameSeconds": 15.966667,
