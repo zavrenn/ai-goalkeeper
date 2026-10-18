@@ -1,0 +1,496 @@
+{
+  "schemaVersion": 1,
+  "sourceVideo": {
+    "path": "media/penalties.mp4",
+    "durationSeconds": 83.253651,
+    "width": 1280,
+    "height": 720,
+    "nominalFramesPerSecond": 30
+  },
+  "penalties": [
+    {
+      "id": "penalty-01",
+      "runUpStartSeconds": 0,
+      "kickTimeEstimateSeconds": 2.3,
+      "clipEndSeconds": 3.6,
+      "latestConfirmedPreContactFrameSeconds": 2.266667,
+      "crop": {
+        "x": 200,
+        "y": 375,
+        "width": 580,
+        "height": 240
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "left",
+        "kind": "goal",
+        "visibleAtSeconds": 3
+      }
+    },
+    {
+      "id": "penalty-02",
+      "runUpStartSeconds": 5.1,
+      "kickTimeEstimateSeconds": 6.4,
+      "clipEndSeconds": 8.5,
+      "latestConfirmedPreContactFrameSeconds": 6.366667,
+      "crop": {
+        "x": 100,
+        "y": 380,
+        "width": 1080,
+        "height": 340
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "left",
+        "kind": "goal",
+        "visibleAtSeconds": 7.1
+      }
+    },
+    {
+      "id": "penalty-03",
+      "runUpStartSeconds": 8.6,
+      "kickTimeEstimateSeconds": 9.466667,
+      "clipEndSeconds": 10.9,
+      "latestConfirmedPreContactFrameSeconds": 9.433333,
+      "crop": {
+        "x": 100,
+        "y": 300,
+        "width": 1080,
+        "height": 420
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "center",
+        "kind": "goal",
+        "visibleAtSeconds": 10.166667
+      }
+    },
+    {
+      "id": "penalty-04",
+      "runUpStartSeconds": 11.9,
+      "kickTimeEstimateSeconds": 13.266667,
+      "clipEndSeconds": 14.5,
+      "latestConfirmedPreContactFrameSeconds": 13.233333,
+      "crop": {
+        "x": 100,
+        "y": 330,
+        "width": 1080,
+        "height": 390
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "right",
+        "kind": "goal",
+        "visibleAtSeconds": 13.966667
+      }
+    },
+    {
+      "id": "penalty-05",
+      "runUpStartSeconds": 15.633333,
+      "kickTimeEstimateSeconds": 16,
+      "clipEndSeconds": 17.2,
+      "latestConfirmedPreContactFrameSeconds": 15.966667,
+      "crop": {
+        "x": 100,
+        "y": 340,
+        "width": 1080,
+        "height": 380
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "left",
+        "kind": "goal",
+        "visibleAtSeconds": 16.7
+      }
+    },
+    {
+      "id": "penalty-06",
+      "runUpStartSeconds": 17.966667,
+      "kickTimeEstimateSeconds": 19.733333,
+      "clipEndSeconds": 20.65,
+      "latestConfirmedPreContactFrameSeconds": 19.7,
+      "crop": {
+        "x": 100,
+        "y": 330,
+        "width": 1080,
+        "height": 390
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "right",
+        "kind": "goal",
+        "visibleAtSeconds": 20.433333
+      }
+    },
+    {
+      "id": "penalty-07",
+      "runUpStartSeconds": 20.8,
+      "kickTimeEstimateSeconds": 21.733333,
+      "clipEndSeconds": 23.2,
+      "latestConfirmedPreContactFrameSeconds": 21.7,
+      "crop": {
+        "x": 100,
+        "y": 330,
+        "width": 1080,
+        "height": 390
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "left",
+        "kind": "goal",
+        "visibleAtSeconds": 22.433333
+      }
+    },
+    {
+      "id": "penalty-08",
+      "runUpStartSeconds": 24,
+      "kickTimeEstimateSeconds": 24.6,
+      "clipEndSeconds": 25.65,
+      "latestConfirmedPreContactFrameSeconds": 24.566667,
+      "crop": {
+        "x": 100,
+        "y": 420,
+        "width": 1080,
+        "height": 300
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "left",
+        "kind": "goal",
+        "visibleAtSeconds": 25.3
+      }
+    },
+    {
+      "id": "penalty-09",
+      "runUpStartSeconds": 26.6,
+      "kickTimeEstimateSeconds": 27.7,
+      "clipEndSeconds": 28.5,
+      "latestConfirmedPreContactFrameSeconds": 27.666667,
+      "crop": {
+        "x": 100,
+        "y": 320,
+        "width": 1080,
+        "height": 400
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "right",
+        "kind": "goal",
+        "visibleAtSeconds": 28.38
+      }
+    },
+    {
+      "id": "penalty-10",
+      "runUpStartSeconds": 30.2,
+      "kickTimeEstimateSeconds": 31.633333,
+      "clipEndSeconds": 33,
+      "latestConfirmedPreContactFrameSeconds": 31.6,
+      "crop": {
+        "x": 100,
+        "y": 460,
+        "width": 1080,
+        "height": 260
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "left",
+        "kind": "goal",
+        "visibleAtSeconds": 32.333333
+      }
+    },
+    {
+      "id": "penalty-11",
+      "runUpStartSeconds": 33.966667,
+      "kickTimeEstimateSeconds": 34.566667,
+      "clipEndSeconds": 35.8,
+      "latestConfirmedPreContactFrameSeconds": 34.533333,
+      "crop": {
+        "x": 100,
+        "y": 300,
+        "width": 1080,
+        "height": 420
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "center",
+        "kind": "goal",
+        "visibleAtSeconds": 35.266667
+      }
+    },
+    {
+      "id": "penalty-12",
+      "runUpStartSeconds": 36.466667,
+      "kickTimeEstimateSeconds": 36.966667,
+      "clipEndSeconds": 38.1,
+      "latestConfirmedPreContactFrameSeconds": 36.933333,
+      "crop": {
+        "x": 100,
+        "y": 400,
+        "width": 1080,
+        "height": 320
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "right",
+        "kind": "goal",
+        "visibleAtSeconds": 37.666667
+      }
+    },
+    {
+      "id": "penalty-13",
+      "runUpStartSeconds": 38.8,
+      "kickTimeEstimateSeconds": 40,
+      "clipEndSeconds": 41,
+      "latestConfirmedPreContactFrameSeconds": 39.966667,
+      "crop": {
+        "x": 100,
+        "y": 290,
+        "width": 1080,
+        "height": 430
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "center",
+        "kind": "goal",
+        "visibleAtSeconds": 40.7
+      }
+    },
+    {
+      "id": "penalty-14",
+      "runUpStartSeconds": 42,
+      "kickTimeEstimateSeconds": 42.966667,
+      "clipEndSeconds": 44.05,
+      "latestConfirmedPreContactFrameSeconds": 42.933333,
+      "crop": {
+        "x": 100,
+        "y": 375,
+        "width": 1080,
+        "height": 345
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "left",
+        "kind": "goal",
+        "visibleAtSeconds": 43.666667
+      }
+    },
+    {
+      "id": "penalty-15",
+      "runUpStartSeconds": 45,
+      "kickTimeEstimateSeconds": 45.7,
+      "clipEndSeconds": 46.45,
+      "latestConfirmedPreContactFrameSeconds": 45.666667,
+      "crop": {
+        "x": 100,
+        "y": 450,
+        "width": 1080,
+        "height": 270
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "left",
+        "kind": "goal",
+        "visibleAtSeconds": 46.33
+      }
+    },
+    {
+      "id": "penalty-16",
+      "runUpStartSeconds": 47.533333,
+      "kickTimeEstimateSeconds": 48.6,
+      "clipEndSeconds": 50.2,
+      "latestConfirmedPreContactFrameSeconds": 48.566667,
+      "crop": {
+        "x": 100,
+        "y": 360,
+        "width": 1080,
+        "height": 360
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "left",
+        "kind": "goal",
+        "visibleAtSeconds": 49.3
+      }
+    },
+    {
+      "id": "penalty-17",
+      "runUpStartSeconds": 51.2,
+      "kickTimeEstimateSeconds": 52.6,
+      "clipEndSeconds": 54.35,
+      "latestConfirmedPreContactFrameSeconds": 52.566667,
+      "crop": {
+        "x": 100,
+        "y": 450,
+        "width": 1080,
+        "height": 270
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "left",
+        "kind": "goal",
+        "visibleAtSeconds": 53.3
+      }
+    },
+    {
+      "id": "penalty-18",
+      "runUpStartSeconds": 54.533333,
+      "kickTimeEstimateSeconds": 55.966667,
+      "clipEndSeconds": 57.5,
+      "latestConfirmedPreContactFrameSeconds": 55.933333,
+      "crop": {
+        "x": 100,
+        "y": 360,
+        "width": 1080,
+        "height": 360
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "left",
+        "kind": "goal",
+        "visibleAtSeconds": 56.666667
+      }
+    },
+    {
+      "id": "penalty-19",
+      "runUpStartSeconds": 58.1,
+      "kickTimeEstimateSeconds": 59.1,
+      "clipEndSeconds": 60.05,
+      "latestConfirmedPreContactFrameSeconds": 59.066667,
+      "crop": {
+        "x": 100,
+        "y": 350,
+        "width": 1080,
+        "height": 370
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "right",
+        "kind": "goal",
+        "visibleAtSeconds": 59.8
+      }
+    },
+    {
+      "id": "penalty-20",
+      "runUpStartSeconds": 60.766667,
+      "kickTimeEstimateSeconds": 61.833333,
+      "clipEndSeconds": 63.3,
+      "latestConfirmedPreContactFrameSeconds": 61.8,
+      "crop": {
+        "x": 100,
+        "y": 430,
+        "width": 1080,
+        "height": 290
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": null,
+        "kind": "unclear",
+        "visibleAtSeconds": 62.533333
+      }
+    },
+    {
+      "id": "penalty-21",
+      "runUpStartSeconds": 63.466667,
+      "kickTimeEstimateSeconds": 64.2,
+      "clipEndSeconds": 65.3,
+      "latestConfirmedPreContactFrameSeconds": 64.166667,
+      "crop": {
+        "x": 100,
+        "y": 375,
+        "width": 1080,
+        "height": 345
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": "left",
+        "kind": "goal",
+        "visibleAtSeconds": 64.9
+      }
+    },
+    {
+      "id": "penalty-22",
+      "runUpStartSeconds": 65.933333,
+      "kickTimeEstimateSeconds": 67.233333,
+      "clipEndSeconds": 68.9,
+      "latestConfirmedPreContactFrameSeconds": 67.2,
+      "crop": {
+        "x": 100,
+        "y": 400,
+        "width": 1080,
+        "height": 320
+      },
+      "annotation": {
+        "method": "manual",
+        "uncertaintySeconds": 0.033334
+      },
+      "evaluation": {
+        "zone": null,
+        "kind": "off-target",
+        "visibleAtSeconds": 67.933333
+      }
+    }
+  ]
+}

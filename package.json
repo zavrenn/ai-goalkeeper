@@ -1,0 +1,18 @@
+{
+  "name": "ai-goalkeeper",
+  "description": "A live AI penalty prediction demo with a Three.js goalkeeper.",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env --env-file-if-exists=.env.local server.mjs",
+    "dev": "node --watch --env-file-if-exists=.env --env-file-if-exists=.env.local server.mjs",
+    "check": "node --check server.mjs && node --check lib/decisions.mjs && node --check dist/live.js && node --check dist/goal-scene.js && node --check dist/keeper-rig.js && node --check dist/keeper-motion.js && node --check dist/reaction.js && node --check dist/playlist.js && node --check dist/prediction-result.js && node --check dist/timing.js"
+  },
+  "dependencies": {
+    "three": "0.186.1"
+  }
+}

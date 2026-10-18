@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b100d">
+  <meta name="description" content="A real penalty, a live AI prediction, and a goalkeeper reacting at the kick.">
+  <title>AI Goalkeeper · Live</title>
+  <link rel="stylesheet" href="/record.css">
+  <script type="importmap">{"imports":{"three":"/vendor/three.module.js","three/addons/":"/vendor/addons/"}}</script>
+  <script type="module" src="/live.js"></script>
+</head>
+<body>
+  <main class="app-shell">
+    <div id="notice" class="notice" role="alert" hidden></div>
+    <section id="capture" class="capture" aria-label="AI Goalkeeper recording view">
+      <header class="capture-heading"><div class="title-line"><h1>AI Goalkeeper</h1><span id="shotCounter" class="shot-counter">Penalty 1</span></div><p>AI watches the player, predicts the shot, and dives.</p></header>
+      <div class="video-panel"><video id="video" muted playsinline preload="auto" disablepictureinpicture aria-label="Penalties, played at normal speed"></video><div id="videoLoading" class="video-loading">Loading the penalties…</div></div>
+      <div class="decision-strip"><p id="decisionLabel" class="decision-label" role="status">Where will the shot go?</p><div class="latency" id="responseTime" hidden><span>AI response</span><strong id="latencyValue">—<small> ms</small></strong></div></div>
+      <div class="goal-panel" id="goalPanel" aria-label="AI goalkeeper and live shot probabilities">
+        <div id="goalCanvas" class="goal-canvas"></div>
+        <div class="zone" id="zone-left" data-direction="left"><span>Left</span><strong id="prob-left">—</strong></div>
+        <div class="zone" id="zone-center" data-direction="center"><span>Center</span><strong id="prob-center">—</strong></div>
+        <div class="zone" id="zone-right" data-direction="right"><span>Right</span><strong id="prob-right">—</strong></div>
+        <div id="predictionResult" class="prediction-result" role="status" hidden><span id="resultIcon" aria-hidden="true"></span><span id="resultLabel"></span></div>
+        <div id="keeperLoading" class="keeper-loading">Preparing the goalkeeper…</div>
+      </div>
+    </section>
+    <div class="playback-controls"><button id="runButton" class="primary-button" type="button" disabled><span aria-hidden="true">▶</span> Play</button></div>
+  </main>
+
+  <div hidden aria-hidden="true">
+    <div id="liveBadge"><span id="liveState"></span></div><span id="phaseLabel"></span><span id="reactionStatus"></span><span id="sourceStatus"></span><span id="runStatus"></span>
+    <button id="setupButton" type="button">Setup</button><button id="previewButton" type="button">Preview</button><button id="stopButton" type="button" hidden>Stop</button><button id="recordButton" type="button" aria-pressed="false">Record</button>
+  <dialog id="setupDialog" aria-labelledby="setupTitle">
+    <div class="dialog-heading"><div><p class="eyebrow">LOCAL EXPERIMENT</p><h2 id="setupTitle">Setup & results</h2></div><button id="closeSetup" class="close-button" aria-label="Close setup" type="button">×</button></div>
+    <div class="connection-line"><span id="keyDot" class="key-dot"></span><span id="keyStatus">Checking API key</span><span class="model-label">gpt-6-luna</span></div>
+    <details id="connectionDetails"><summary>Change API key</summary><p class="small-copy">The local server keeps this key in memory. Live runs send pre-contact player frames to OpenAI.</p><form id="keyForm"><label class="sr-only" for="apiKey">OpenAI API key</label><input id="apiKey" type="password" autocomplete="off" placeholder="OpenAI API key" spellcheck="false" required><button id="connectButton" class="primary-button" type="submit">Use key</button></form><p id="keyMessage" class="small-copy" role="status"></p></details>
+    <div class="calibration"><span>Ball contact</span><strong id="contactCalibration">—</strong><p>Each penalty uses a manually annotated contact marker. Frames after its last confirmed pre-contact frame are excluded.</p></div>
+    <div class="results-heading"><h3>Last run</h3><button id="exportButton" class="quiet-button" type="button" disabled>Export results ↗</button></div>
+    <dl class="run-metrics"><div><dt>Predictions</dt><dd id="answerCount">0</dd></div><div><dt>OpenAI round trip</dt><dd id="apiLatency">—</dd></div><div><dt>Model confidence</dt><dd id="confidence">—</dd></div></dl>
+    <p id="detailStatus" class="small-copy">No live test yet. The displayed zone percentages are the model’s direction probabilities.</p>
+    <div class="request-table"><table><thead><tr><th>FRAME</th><th>CHOICE</th><th>RESPONSE</th><th>VS. KICK</th></tr></thead><tbody id="requestRows"><tr><td colspan="4">No requests yet.</td></tr></tbody></table></div>
+    <details class="input-details"><summary>Latest input sent to the AI</summary><canvas id="cropCanvas" width="580" height="240" aria-label="Player and ball cropped before contact"></canvas><p class="small-copy" id="cropTime">No frame sent. The original goalkeeper and scoreboard are excluded.</p></details>
+    <div class="dialog-footer"><span>Preview video makes no API requests.</span></div>
+  </dialog>
+  <button id="exitClean" class="exit-clean" type="button" hidden>Exit clean view <kbd>ESC</kbd></button>
+  </div>
+</body>
+</html>
